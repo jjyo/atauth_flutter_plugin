@@ -18,6 +18,9 @@ rootProject.allprojects {
     repositories {
         google()
         jcenter()
+	flatDir {
+            dirs 'libs' //this way we can find the .aar file in libs folder
+    	}
     }
 }
 
@@ -39,9 +42,9 @@ android {
     dependencies {
         implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
         implementation 'androidx.appcompat:appcompat:1.2.0'
-        api(group: 'com.aliyun', name: 'numberauth', version: '2.10.1', ext: 'aar')
-        implementation(group: 'com.aliyun', name: 'crashshield', version: '2.10.1', ext: 'aar')
         implementation 'com.alibaba:fastjson:1.2.70'
         implementation 'com.ucweb.wpk:crashsdk:3.2.2.2'
+	    compile(name:'phoneNumber-L-AuthSDK-2.10.1', ext:'aar')
+	    compile(name:'crashshield-release', ext:'aar')
     }
 }
