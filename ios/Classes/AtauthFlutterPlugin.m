@@ -79,9 +79,8 @@
   NSString *skdInfo = [call.arguments objectForKey:@"authSDKInfo"];
   [[TXCommonHandler sharedInstance] setAuthSDKInfo:skdInfo
                                           complete:^(NSDictionary * _Nonnull resultDic) {
-      NSString *msg = [resultDic objectForKey:@"msg"];
-      NSDictionary *dict = @{@"msg": msg, @"code": @"1"};
-      result([self dictToJson:dict]);
+      
+      result([self dictToJson:resultDic]);
   }];
 }
 
@@ -99,8 +98,7 @@
 
   [[TXCommonHandler sharedInstance] checkEnvAvailableWithAuthType:authType
                                                          complete:^(NSDictionary * _Nullable resultDic) {
-      NSDictionary *dict = @{@"msg": @"检查环境成功", @"code": @"1"};
-      result([self dictToJson:dict]);
+      result([self dictToJson:resultDic]);
   }];
 }
 
@@ -110,8 +108,7 @@
   NSTimeInterval time = [[call.arguments objectForKey:@"timeout"] doubleValue];
 
   [[TXCommonHandler sharedInstance] accelerateLoginPageWithTimeout:time complete:^(NSDictionary * _Nonnull resultDic) {
-      NSDictionary *dict = @{@"msg": @"加速一键登录成功", @"code": @"1"};
-      result([self dictToJson:dict]);
+      result([self dictToJson:resultDic]);
   }];
 
 }
@@ -125,17 +122,7 @@
                                                   controller:[self viewControllerWithWindow:nil]
                                                        model:[self buildFullScreenPortraitModel]
                                                     complete:^(NSDictionary * _Nonnull resultDic) {
-      NSString *resultCode = [resultDic objectForKey:@"resultCode"];
-      NSString *msg = [resultDic objectForKey:@"msg"];
-      NSString *token = [resultDic objectForKey:@"token"];
-      if ([resultCode isEqualToString:PNSCodeSuccess]) {
-          NSDictionary *dict = @{@"msg": msg, @"code": @"1", @"token": token};
-          result([self dictToJson:dict]);
-      }
-      else if ([resultCode isEqualToString:PNSCodeLoginControllerClickCancel]) {
-          NSDictionary *dict = @{@"msg": @"点击返回", @"code": @"100"};
-          result([self dictToJson:dict]);
-      }
+      result([self dictToJson:resultDic]);
       self.loginResult = result;
 
   }];
